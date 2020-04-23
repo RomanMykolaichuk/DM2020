@@ -31,7 +31,7 @@ public  class CSVParsing {
 
         try {
             File file = ResourceUtils.getFile("classpath:"+fileName);
-            in = new FileReader(file.toPath().toString());
+            in = new FileReader(file);
             Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
 
             for (CSVRecord record : records) {
