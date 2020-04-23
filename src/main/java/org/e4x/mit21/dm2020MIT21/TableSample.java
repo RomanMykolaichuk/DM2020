@@ -65,7 +65,7 @@ public class TableSample {
     
     @Override
     public String toString(){
-    return id+", "+name+", "+age;
+    return "\n"+id+", "+name+", "+age;
     }
     
 
