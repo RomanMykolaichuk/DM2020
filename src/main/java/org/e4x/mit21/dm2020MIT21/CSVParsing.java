@@ -25,7 +25,7 @@ public  class CSVParsing {
 
     
     public static ArrayList<TableSample> loadData(String fileName) throws IOException {
-        ArrayList<TableSample> result = new ArrayList<TableSample>();
+        ArrayList<TableSample> result = new ArrayList<>();
        
         Reader in = null;
 

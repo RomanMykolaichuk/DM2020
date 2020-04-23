@@ -1,6 +1,5 @@
 package org.e4x.mit21.dm2020MIT21;
 
-import java.net.URL;
 import java.util.ArrayList;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +31,7 @@ public class ExamSampleApplication implements CommandLineRunner {
 
             tableSampleRepository.save(newRow);
         }
+        
         System.out.println(tableSampleRepository.findAll());
 
         System.out.println("End");
