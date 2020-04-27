@@ -18,20 +18,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 public class TableSample {
 
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
+   
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -52,6 +39,17 @@ public class TableSample {
     /**
      * @return the id
      */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
     /**
      * @return the name
