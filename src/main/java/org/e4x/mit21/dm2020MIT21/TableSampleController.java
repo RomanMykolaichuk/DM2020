@@ -33,13 +33,13 @@ public class TableSampleController {
         model.addAttribute("tableRows", tableSampleRepository.findAll());
         return "index";
     }
-    
+
     @GetMapping("/signup")
     public String showAddForm(TableSample tableSample) {
         return "add-rows";
     }
-    
-     @PostMapping("/addrows")
+
+    @PostMapping("/addrows")
     public String addUser(@Valid TableSample tableSample, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "add-rows";
@@ -50,7 +50,7 @@ public class TableSampleController {
         return "index";
     }
 
-@GetMapping("/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") int id, Model model) {
         TableSample tableSample = tableSampleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid row Id:" + id));
@@ -64,14 +64,14 @@ public class TableSampleController {
             BindingResult result, Model model) {
         if (result.hasErrors()) {
             tableSample.setId(id);
+            model.addAttribute("tableRows", tableSample);
             return "update-rows";
         }
-         tableSampleRepository.save(tableSample);
+        tableSampleRepository.save(tableSample);
         model.addAttribute("tableRows", tableSampleRepository.findAll());
         return "index";
     }
-    
-    
+
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") int id, Model model) {
         TableSample tableSample = tableSampleRepository.findById(id)

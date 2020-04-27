@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 /**
  *
@@ -35,19 +36,22 @@ public class TableSample {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+    @NotBlank(message = "Name is mandatory")
     private String name;
+    //@NotBlank(message = "Age is mandatory")
     private int age;
 
     TableSample() {
     }
- TableSample(String name, int age) {
-     this.name=name;
-     this.age=age;
+
+    TableSample(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
+
     /**
      * @return the id
      */
-  
 
     /**
      * @return the name
@@ -76,11 +80,10 @@ public class TableSample {
     public void setAge(int age) {
         this.age = age;
     }
-    
+
     @Override
-    public String toString(){
-    return "\n"+getId()+", "+name+", "+age;
+    public String toString() {
+        return "\n" + getId() + ", " + name + ", " + age;
     }
-    
 
 }
