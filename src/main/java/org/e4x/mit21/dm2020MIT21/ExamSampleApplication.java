@@ -22,7 +22,7 @@ public class ExamSampleApplication implements CommandLineRunner {
     public void run(String... arg0) throws Exception {
         System.out.println("Begin");
 
-        String fileName = "data/data1.csv";
+       /* String fileName = "data/data1.csv";
 
         ArrayList<TableSample> dataPopulating
                 = CSVParsing.loadData(fileName);
@@ -32,7 +32,7 @@ public class ExamSampleApplication implements CommandLineRunner {
             tableSampleRepository.save(newRow);
         }
         
-        System.out.println(tableSampleRepository.findAll());
+        System.out.println(tableSampleRepository.findAll());*/
 
         System.out.println("End");
     }
