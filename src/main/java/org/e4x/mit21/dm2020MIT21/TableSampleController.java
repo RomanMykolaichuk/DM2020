@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
@@ -49,5 +50,34 @@ public class TableSampleController {
         return "index";
     }
 
+@GetMapping("/edit/{id}")
+    public String showUpdateForm(@PathVariable("id") int id, Model model) {
+        TableSample tableSample = tableSampleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid row Id:" + id));
 
+        model.addAttribute("tableRows", tableSample);
+        return "update-rows";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateUser(@PathVariable("id") int id, @Valid TableSample tableSample,
+            BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            tableSample.setId(id);
+            return "update-rows";
+        }
+         tableSampleRepository.save(tableSample);
+        model.addAttribute("tableRows", tableSampleRepository.findAll());
+        return "index";
+    }
+    
+    
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") int id, Model model) {
+        TableSample tableSample = tableSampleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        tableSampleRepository.delete(tableSample);
+        model.addAttribute("tableRows", tableSampleRepository.findAll());
+        return "index";
+    }
 }
