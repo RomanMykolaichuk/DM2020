@@ -6,11 +6,13 @@
 package org.e4x.mit21.dm2020MIT21;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Roman
  */
+@Repository
 public interface TableSampleRepository extends JpaRepository<TableSample, Integer> {
     
 }
