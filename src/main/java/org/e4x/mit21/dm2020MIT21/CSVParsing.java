@@ -15,22 +15,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.io.FileUtils;
+
 import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
  * @author Roman
  */
-public  class CSVParsing {
+public class CSVParsing {
 
-    
     public static ArrayList<TableSample> loadData(String fileName) throws IOException {
         ArrayList<TableSample> result = new ArrayList<>();
-       
+
         Reader in = null;
 
         try {
-            File file = ResourceUtils.getFile("classpath:"+fileName);
+            File file = ResourceUtils.getFile("classpath:" + fileName);
             in = new FileReader(file);
             Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
 
@@ -55,4 +57,40 @@ public  class CSVParsing {
 
     }
 
+    public static ArrayList<TableSample> loadData(MultipartFile multipartFile) throws IOException {
+        ArrayList<TableSample> result = new ArrayList<>();
+
+        Reader in = null;
+
+        try {
+
+            File helperFile = File.createTempFile("data","csv");
+
+            FileUtils.writeByteArrayToFile(helperFile, multipartFile.getBytes());
+
+            in = new FileReader(helperFile);
+            Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
+
+            for (CSVRecord record : records) {
+
+                TableSample tableRow = new TableSample(record.get(0).trim() + " " + record.get(1).trim(),
+                        Integer.parseInt(record.get(2).trim()));
+                result.add(tableRow);
+                //System.out.println(movie);
+            }
+            helperFile.deleteOnExit();
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(CSVParsing.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                in.close();
+                
+            } catch (IOException ex) {
+                Logger.getLogger(CSVParsing.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return result;
+
+    }
 }
