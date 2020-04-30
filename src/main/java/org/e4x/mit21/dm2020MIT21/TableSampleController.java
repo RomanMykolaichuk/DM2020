@@ -6,6 +6,7 @@
 package org.e4x.mit21.dm2020MIT21;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -90,10 +91,10 @@ public class TableSampleController {
 
         return "file";
     }
-    
-     @PostMapping("/upload") // //new annotation since 4.3
+
+    @PostMapping("/upload") // //new annotation since 4.3
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes) {
 
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
@@ -102,8 +103,13 @@ public class TableSampleController {
 
         try {
 
-                    
-            CSVParsing.loadData(file);
+            ArrayList<TableSample> dataPopulating
+                    = CSVParsing.loadData(file);
+
+            for (TableSample newRow : dataPopulating) {
+
+                tableSampleRepository.save(newRow);
+            }
 
             redirectAttributes.addFlashAttribute("message",
                     "You successfully uploaded '" + file.getOriginalFilename() + "'");
@@ -119,7 +125,5 @@ public class TableSampleController {
     public String uploadStatus() {
         return "uploadStatus";
     }
-    
-    
 
 }
