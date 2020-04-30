@@ -80,4 +80,9 @@ public class TableSampleController {
         model.addAttribute("tableRows", tableSampleRepository.findAll());
         return "index";
     }
+    
+    @GetMapping("/file")
+    public String
+    
+    
 }
