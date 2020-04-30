@@ -92,7 +92,7 @@ public class TableSampleController {
         return "file";
     }
 
-    @PostMapping("/upload") // //new annotation since 4.3
+    @PostMapping("/upload")
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
             RedirectAttributes redirectAttributes) {
 
@@ -105,14 +105,16 @@ public class TableSampleController {
 
             ArrayList<TableSample> dataPopulating
                     = CSVParsing.loadData(file);
-
+            int rowsCount = 0;
             for (TableSample newRow : dataPopulating) {
 
                 tableSampleRepository.save(newRow);
+                rowsCount++;
             }
 
             redirectAttributes.addFlashAttribute("message",
-                    "You successfully uploaded '" + file.getOriginalFilename() + "'");
+                    "You successfully uploaded " + rowsCount
+                    + " rows from '" + file.getOriginalFilename() + "'");
 
         } catch (IOException e) {
             e.printStackTrace();
