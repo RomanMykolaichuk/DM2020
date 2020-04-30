@@ -76,7 +76,7 @@ public class CSVParsing {
                 TableSample tableRow = new TableSample(record.get(0).trim() + " " + record.get(1).trim(),
                         Integer.parseInt(record.get(2).trim()));
                 result.add(tableRow);
-                //System.out.println(movie);
+                
             }
             helperFile.deleteOnExit();
 
